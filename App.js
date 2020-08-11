@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
+import ToDo from "./ToDo";
 import {
   StyleSheet,
   Text,
@@ -7,16 +8,24 @@ import {
   TextInput,
   Dimensions,
   Platform,
+  ScrollView,
 } from "react-native";
 
 const { height, width } = Dimensions.get("window");
 export default function App() {
+  const [startState, updateState] = React.useState("first");
+  function changeText(text){
+    updateState(text);
+  }
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
       <Text style={styles.title}>Kawai To Do</Text>
-      <View style={styles.card}>
-        <TextInput style={styles.input} placeholder={"New To Do"}></TextInput>
+      <View stylea={styles.card}>
+        <TextInput style={styles.input} placeholder={"inputText"} value={startState} onChangeText={changeText}></TextInput>
+        <ScrollView contentContainerStyle={styles.todos}>
+          <ToDo></ToDo>
+        </ScrollView>
       </View>
     </View>
   );
@@ -56,4 +65,7 @@ const styles = StyleSheet.create({
     }),
   },
   input: {},
+  toDos:{
+    alignItems:"center"
+  }
 });
